@@ -5,7 +5,7 @@ import { atualizarPortas, criarPortas } from "../../../functions/portas";
 import styles from "../../../styles/Jogo.module.css";
 import { useRouter } from "next/router";
 
-export default function jogo() {
+export default function Jogo() {
   const router = useRouter();
   const [portas, setPortas] = useState([]);
   const [valido, setValido] = useState(false);
@@ -18,7 +18,7 @@ export default function jogo() {
     const temPresenteValido = temPresente >= 1 && temPresente <= portas;
 
     setValido(qtdPortasValida && temPresenteValido);
-  }, [portas]);
+  }, [portas, router.query.portas, router.query.temPresente]);
 
   useEffect(() => {
     setPortas(criarPortas(+router.query.portas, +router.query.temPresente));
@@ -45,7 +45,7 @@ export default function jogo() {
         {valido ? rendereizarPortas() : <h2>Valores Inválidos</h2>}
       </div>
       <div className={styles.botoes}>
-        <Link href="/">
+        <Link passHref href="/">
           <button>Reiniciar</button>
         </Link>
       </div>
